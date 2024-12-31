@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Food Log Section -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Food Log</h2>
+        <form method="POST" action="{{ url_for('add_food_log') }}" class="mb-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="food_name" class="block text-gray-700 text-sm font-bold mb-2">Food Name</label>
+                    <input type="text" name="food_name" id="food_name" required
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700">
+                </div>
+                <div>
+                    <label for="calories" class="block text-gray-700 text-sm font-bold mb-2">Calories</label>
+                    <input type="number" name="calories" id="calories" required
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700">
+                </div>
+            </div>
+            <button type="submit"
+                class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                Add Food
+            </button>
+        </form>
+
+        <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2">Recent Food Logs</h3>
+            <div class="space-y-2">
+                {% for log in food_logs %}
+                <div class="border rounded p-3 flex justify-between items-center">
+                    <div>
+                        <span class="font-medium">{{ log.food_name }}</span>
+                        <span class="text-gray-600 text-sm">({{ log.calories }} calories)</span>
+                    </div>
+                    <span class="text-gray-500 text-sm">{{ log.date.strftime('%Y-%m-%d %H:%M') }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Diet Plan Section -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Current Diet Plan</h2>
+        {% if diet_plan %}
+        <div class="prose">
+            {{ diet_plan.plan_details | safe }}
+        </div>
+        {% else %}
+        <p class="text-gray-600">No diet plan assigned yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Progress Chart -->
+    <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Calorie Intake Progress</h2>
+        <canvas id="calorieChart"></canvas>
+    </div>
+</div>
+
+<script>
+    // Sample chart data
+    const ctx = document.getElementById('calorieChart').getContext('2d');
+    const calorieChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [{% for log in food_logs %}'{{ log.date.strftime("%Y-%m-%d") }}',{% endfor %}],
+            datasets: [{
+                label: 'Daily Calories',
+                data: [{% for log in food_logs %}{{ log.calories }},{% endfor %}],
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,4 @@
+flask==2.0.1
+flask-sqlalchemy==2.5.1
+flask-login==0.5.0
+werkzeug==2.0.1

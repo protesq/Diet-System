@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="text-4xl font-bold text-gray-900 mb-8">Welcome to DietTracker</h1>
+    <p class="text-xl text-gray-600 mb-8">Your personal diet management system</p>
+    
+    {% if not current_user.is_authenticated %}
+    <div class="space-x-4">
+        <a href="{{ url_for('login') }}" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600">Login</a>
+        <a href="{{ url_for('register') }}" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600">Register</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
