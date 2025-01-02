@@ -24,15 +24,6 @@ Bu proje, kullanıcıların beslenme alışkanlıklarını izleyip yönetmelerin
     ```bash
     pip install -r requirements.txt
     ```
-3. Veritabanını oluşturun:
-    ```bash
-    python setup_database.py
-    ```
-4. Uygulamayı çalıştırın:
-    ```bash
-    python app.py
-    ```
-5. Tarayıcınızda `http://localhost:5000` adresini açarak uygulamayı kullanabilirsiniz.
 
 ## Kullanım
 1. Yeni bir kullanıcı hesabı oluşturun veya mevcut bir hesapla giriş yapın.
