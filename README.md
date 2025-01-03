@@ -1,4 +1,4 @@
-# Diet System
+# Dietician System
 
 Bu proje, kullanıcıların beslenme alışkanlıklarını izleyip yönetmelerine olanak tanıyan bir diyet takip sistemidir. Sistem, kullanıcıların sağlık hedeflerine uygun olarak kişiselleştirilmiş diyet planları oluşturmasını ve günlük besin tüketimlerini kolayca takip etmelerini sağlar.
 
